@@ -18,7 +18,6 @@ const run4 = async (res) => {
                               "--single-process",
                               "--no-zygote",
                             ],
-                        headless: false,
                         executablePath:
                               process.env.NODE_ENV === "production"
                                 ? process.env.PUPPETEER_EXECUTABLE_PATH
