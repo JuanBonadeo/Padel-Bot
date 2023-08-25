@@ -1,8 +1,6 @@
 import puppeteer from "puppeteer"
 import cron from "node-cron"
 
-
-
 async function run4() {
       const browser = await puppeteer.launch(
             {
@@ -18,7 +16,7 @@ async function run4() {
       await page.keyboard.type("Juan2004")
       await page.keyboard.press('Enter')
       await page.waitForNavigation()
-      // book
+      // starts the reservation
       await page.goto('https://www.rckbracquetgarden.com/book/ritz-carlton-racquet-garden-key-biscayne')
       //click day
       const ultimoDiaBtn = await page.$(".flex_mobile_button_container > button:last-child");
@@ -27,21 +25,22 @@ async function run4() {
             elements.map((element) => element.textContent)
       );     
       const dia = ultimoDia[0]
-      const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 11;  
+      const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 22; // importante 
       console.log(cantHorarios)
 
       await page.waitForTimeout(1000);
+
       //click hour
-            
       const ultimaHora = await page.$(`div.hours_list > button:nth-child(${cantHorarios -1})`);
       await ultimaHora.click()
       const ultimasHora = await page.$(`div.hours_list > button:nth-child(${cantHorarios})`);
       await ultimasHora.click()
       
       await page.waitForTimeout(1000);
+      // first next button
       const botonNext = await page.$(".ui.buttons.fluid .ui.icon.small.button.primary");
       await botonNext.click()
-
+      // Complete players
       await page.waitForTimeout(1000);
       for (let i = 0; i < 3; i++) {
             const fistPlayer = await page.$(".FacilityItem.flex_align_items_center.mb14 .PlayerSearchListModal");
@@ -59,7 +58,6 @@ async function run4() {
             await input.click()
             await page.keyboard.press('Enter')
       }
-
 
       await page.waitForTimeout(1000);
       // go to final step
