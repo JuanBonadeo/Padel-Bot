@@ -68,7 +68,7 @@ async function run4() {
       const botonBook = await page.$("body > div.body_wrapper > div.pusher > div.yield_container.pb30 > div > div:nth-child(2) > div > div.ui.attached.segment > div > div:nth-child(3) > div.content.active > table > tbody > tr > td:nth-child(2) > div:nth-child(1) > div.no-border-top > div > div > div > button");
       await botonBook.click()
 }
-var task = cron.schedule('0 6 * * *', () =>  {
+var task = cron.schedule('* * * * *', () =>  {
   run4()
 })
 task.start()      
