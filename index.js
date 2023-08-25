@@ -97,11 +97,11 @@ const taskNow = cron.schedule(' * * * * *', () => {
           taskNow.destroy();
       });
 
-app.get("/", (req, res) => {
+app.get("/6am", (req, res) => {
       task.start();
       res.send("Scheduled task will start running at 6 AM! timezone:Buenos Aires");
   });
-app.get("/now", async (req, res) => {
+app.get("/", async (req, res) => {
       
       taskNow.start()
       res.send("Scheduled task will start in x seconds");
