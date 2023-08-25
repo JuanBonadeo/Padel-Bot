@@ -27,7 +27,7 @@ async function run4() {
             elements.map((element) => element.textContent)
       );     
       const dia = ultimoDia[0]
-      const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 11;  
+      const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 22;  
       console.log(cantHorarios)
 
       await page.waitForTimeout(1000);
