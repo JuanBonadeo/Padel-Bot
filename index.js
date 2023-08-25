@@ -5,15 +5,6 @@ import cron from "node-cron"
 import dotenv from 'dotenv'
 const PORT = process.env.PORT || 4000
 
-app.get("/scrape", (req, res) => {
-      task.start()
-    });
-app.get("/", (req,res) => {
-      console.log("Render Puppeter server is up running")
-})
-app.listen(PORT, () => {
-      console.log(`listening on port ${PORT}`)
-})
 
 
 
@@ -103,7 +94,17 @@ const run4 = async (res) => {
       }
       
 }
-export const task = cron.schedule('0 6 * * *', () =>  {
+var task = cron.schedule('0 6 * * *', () =>  {
   run4()
 })
+
+
+app.get("/", (req,res) => {
+      console.log("Render Puppeter server is up running")
+      task.start()
+})
+app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`)
+})
+
 
