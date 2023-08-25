@@ -1,8 +1,8 @@
-import express from "express"
+const express = require("express");
 const app = express()
-import puppeteer from "puppeteer"
-import cron from "node-cron"
-import dotenv from 'dotenv'
+const puppeteer = require("puppeteer");
+const cron = require("node-cron") 
+require("dotenv").config();
 const PORT = process.env.PORT || 4000
 
 
