@@ -17,7 +17,7 @@ const run4 = async (res) => {
                               "--single-process",
                               "--no-zygote",
                             ],
-                        // headless: false,
+                        headless: "new",
                         executablePath:
                               process.env.NODE_ENV === "production"
                                 ? process.env.PUPPETEER_EXECUTABLE_PATH
@@ -42,7 +42,7 @@ const run4 = async (res) => {
                   elements.map((element) => element.textContent)
             );     
             const dia = ultimoDia[0]
-            const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 11; // importante 
+            const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 22; // importante 
             console.log(cantHorarios)
       
             await page.waitForTimeout(1000);
