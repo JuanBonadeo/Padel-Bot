@@ -1,5 +1,4 @@
 import express from "express"
-import { task } from "./scarpeLogic.js";
 const app = express()
 import puppeteer from "puppeteer"
 import cron from "node-cron"
@@ -95,6 +94,7 @@ const run4 = async (res) => {
             // book
             const botonBook = await page.$("body > div.body_wrapper > div.pusher > div.yield_container.pb30 > div > div:nth-child(2) > div > div.ui.attached.segment > div > div:nth-child(3) > div.content.active > table > tbody > tr > td:nth-child(2) > div:nth-child(1) > div.no-border-top > div > div > div > button");
             await botonBook.click()
+            console.log("done")
       } catch (e) {
             console.error(e)
             res.send(`Something go wrong with puppeter ${e}`)
