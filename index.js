@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 4000
 
 
 const run4 = async (res) => {
-      try{
             const browser = await puppeteer.launch(
                   {
                         args: [
@@ -18,6 +17,7 @@ const run4 = async (res) => {
                               "--single-process",
                               "--no-zygote",
                             ],
+                        headless: false,
                         executablePath:
                               process.env.NODE_ENV === "production"
                                 ? process.env.PUPPETEER_EXECUTABLE_PATH
@@ -42,7 +42,7 @@ const run4 = async (res) => {
                   elements.map((element) => element.textContent)
             );     
             const dia = ultimoDia[0]
-            const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 11; // importante 
+            const cantHorarios = (dia === "Sat" || dia === "Sun") ? 16 : 22; // importante 
             console.log(cantHorarios)
       
             await page.waitForTimeout(1000);
@@ -84,24 +84,28 @@ const run4 = async (res) => {
             // book
             const botonBook = await page.$("body > div.body_wrapper > div.pusher > div.yield_container.pb30 > div > div:nth-child(2) > div > div.ui.attached.segment > div > div:nth-child(3) > div.content.active > table > tbody > tr > td:nth-child(2) > div:nth-child(1) > div.no-border-top > div > div > div > button");
             await botonBook.click()
-            console.log("done")
-      } catch (e) {
-            console.error(e)
-            res.send(`Something go wrong with puppeter ${e}`)
-      }finally {
-            await browser.close()
-      }
       
 }
-var task = cron.schedule('0 6 * * *', () =>  {
-  run4()
-})
 
 
-app.get("/", (req,res) => {
-      console.log("Render Puppeter server is up running")
-      task.start()
-})
+const task = cron.schedule('0 6 * * *', () => {
+          run4();
+      });
+
+const taskNow = cron.schedule(' * * * * *', () => {
+          run4();
+          taskNow.destroy();
+      });
+
+app.get("/", (req, res) => {
+      task.start();
+      res.send("Scheduled task will start running at 6 AM! timezone:Buenos Aires");
+  });
+app.get("/now", async (req, res) => {
+      
+      taskNow.start()
+      res.send("Scheduled task will start in x seconds");
+  });
 app.listen(PORT, () => {
       console.log(`listening on port ${PORT}`)
 })
